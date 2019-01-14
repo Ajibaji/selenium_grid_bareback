@@ -1,0 +1,11 @@
+# Ignore everything
+*
+
+# But not these files
+!*.tf
+!script.sh
+!.gitignore
+!README.md
+
+# Even if they are in subdirectories
+#*/
