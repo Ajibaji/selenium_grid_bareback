@@ -136,16 +136,16 @@ Options are given to teardown (terraform destroy), re-run Ansible playbooks and 
     - Construct Ansible Playbook:
        - Hub
           - run the Selenium Hub script 
-          - Node $ (where $ is the node number)
-             - runs firefox installation script if ~/1-Firefox-installed.txt doesn't exist
-             - runs chrome installation script if ~/2-Chrome-installed.txt doesn't exist
-             - runs post chrome istalltion script if ~/3-Post-chrome-installed.txt doesn't exist
-             - runs nodeConfig.json creation script if ~/4-Config-file-created.txt doesn't exist
-             - runs shared library script if ~/5-Libraries-shared.txt doesn't exist
-             - runs following in-line shell commands:
-                - if Selenium Standalone Server jar file doesn't exist then download it
-                - install Java 8, if not installed
-                - runs Selenium using "nohup" and redirecting stdout to "nohup.out", using "xvfb-run"to simulate the screen at 1400x1024x24, Selenium role as node, binding to correct network interface using -host, and specifiying config.json as the nodeConfig file
+       - Node $ (where $ is the node number)
+          - runs firefox installation script if ~/1-Firefox-installed.txt doesn't exist
+          - runs chrome installation script if ~/2-Chrome-installed.txt doesn't exist
+          - runs post chrome istalltion script if ~/3-Post-chrome-installed.txt doesn't exist
+          - runs nodeConfig.json creation script if ~/4-Config-file-created.txt doesn't exist
+          - runs shared library script if ~/5-Libraries-shared.txt doesn't exist
+          - runs following in-line shell commands
+             - if Selenium Standalone Server jar file doesn't exist then download it
+             - install Java 8, if not installed
+             - runs Selenium using "nohup" and redirecting stdout to "nohup.out", using "xvfb-run"to simulate the screen at 1400x1024x24, Selenium role as node, binding to correct network interface using -host, and specifiying config.json as the nodeConfig file
                 
     - Run playbook and specify the hosts.ini file we created using "ansible-playbook playbook.yml -i hosts.ini"
     - Once playbook has run its course, PIPBOY is displayed, along with URLs for the Grid Console and the destination to direct tests
