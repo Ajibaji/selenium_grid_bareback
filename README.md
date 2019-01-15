@@ -78,12 +78,31 @@ Options are given to teardown (terraform destroy), re-run Ansible playbooks and 
        
     - Ping all hosts on a loop (max 300) until all hosts respond (AWS takes a while to finish spinning up instances. We wait until this is done to prevent Ansible from timing out when running the Playbook)
     - create the following installation scripts, ready for Ansible to run:
-       - Firefox installtion script - installs firefox (latest Extended Support Release verion) and some of its dependancies (it shares a lot with Chrome so we install them with Chrome and point to them later), installs latest GeckoDriver verion, create symbolic link to make Firefox accessible from anywhere, installs Xvfb to simulate non-existent screen, leaves a marker in the form of a file: "1-Firefox-installed.txt"
-       - Chrome Installation script - utilises a fantastic script from [intoli.com](https://intoli.com/install-google-chrome.sh), installs Chrome and all its dependancies into its own folder (non-shared), leaves a marker in the form of a file: "2-Chrome-installed.txt"
-       - Post-Chrome installtion script - Installs latest Chromedriver, Renames "google-chrome-stable" to "google-chrome" to suit Selenium, leaves a marker in the form of a file: "3-Post-chrome-installed.txt"
-       - Shared-Library script - add Chrome's library directory to "LD_LIBRARY_PATH" and add to .bashrc to give system wide access (mostly for Firefox's sake), leaves a marker in the form of a file: "5-Libraries-shared.txt"
-       - nodeConfig.json constructor script - creates a script that when run on a node will construct nodeConfig.json for running Selenium as a Node, leaves a marker in the form of a file: "4-Config-file-created.txt"
-       - Selenium Hub script - downloads Selenium Standalone Server if not there already, installs Java 8 if not installed, runs Selenium Standalone Server using nohup (and redirecting stdout to nohup.out) to keep the process alive after disconnecting Ansible's ssh connection, -host command line argument is used, along with the Hub's private IP address to ensure binding to correct network interface (some applications, such as Docker, will install virtual interfaces and if used with Selenium can result in unreliable connections between Nodes and the Hub)
+       - Firefox installtion script 
+          - installs firefox (latest Extended Support Release verion) and some of its dependancies (it shares a lot with Chrome so we install them with Chrome and point to them later)
+          - installs latest GeckoDriver version
+          - create symbolic link to make Firefox accessible from anywhere
+          - installs Xvfb to simulate non-existent screen
+          - leaves a marker in the form of a file: "1-Firefox-installed.txt"
+       - Chrome Installation script 
+          - utilises a fantastic script from [intoli.com](https://intoli.com/install-google-chrome.sh) which installs Chrome and all its dependancies into its own folder (non-shared)
+          - leaves a marker in the form of a file: "2-Chrome-installed.txt"
+       - Post-Chrome installtion script 
+          - Installs latest Chromedriver
+          - Renames "google-chrome-stable" to "google-chrome" to suit Selenium
+          - leaves a marker in the form of a file: "3-Post-chrome-installed.txt"
+       - Shared-Library script 
+          - add Chrome's library directory to "LD_LIBRARY_PATH" and add to .bashrc to give system wide access (mostly for Firefox's sake)
+          - leaves a marker in the form of a file: "5-Libraries-shared.txt"
+       - nodeConfig.json constructor script 
+          - creates a script that when run on a node will construct nodeConfig.json for running Selenium as a Node
+          - leaves a marker in the form of a file: "4-Config-file-created.txt"
+       - Selenium Hub script 
+          - downloads Selenium Standalone Server if not there already
+          - installs Java 8 if not installed
+          - runs Selenium Standalone Server using:
+             - nohup (and redirecting stdout to nohup.out) to keep the process alive after disconnecting Ansible's ssh connection
+             - "-host" command line argument is used, passing Hub's private IP address to ensure binding to correct network interface (some applications, such as Docker, will install virtual interfaces and if used with Selenium can result in unreliable connections between Nodes and the Hub)
        - Construct Ansible Playbook:
           - Hub
              - run the Selenium Hub script 
@@ -127,12 +146,32 @@ Options are given to teardown (terraform destroy), re-run Ansible playbooks and 
 
 ### Run Playbook (in case it failed during Create)
  - create the following installation scripts, ready for Ansible to run:
-    - Firefox installtion script - installs firefox (latest Extended Support Release verion) and some of its dependancies (it shares a lot with Chrome so we install them with Chrome and point to them later), installs latest GeckoDriver verion, create symbolic link to make Firefox accessible from anywhere, installs Xvfb to simulate non-existent screen, leaves a marker in the form of a file: "1-Firefox-installed.txt"
-    - Chrome Installation script - utilises a fantastic script from [intoli.com](https://intoli.com/install-google-chrome.sh), installs Chrome and all its dependancies into its own folder (non-shared), leaves a marker in the form of a file: "2-Chrome-installed.txt"
-    - Post-Chrome installtion script - Installs latest Chromedriver, Renames "google-chrome-stable" to "google-chrome" to suit Selenium, leaves a marker in the form of a file: "3-Post-chrome-installed.txt"
-    - Shared-Library script - add Chrome's library directory to "LD_LIBRARY_PATH" and add to .bashrc to give system wide access (mostly for Firefox's sake), leaves a marker in the form of a file: "5-Libraries-shared.txt"
-    - nodeConfig.json constructor script - creates a script that when run on a node will construct nodeConfig.json for running Selenium as a Node, leaves a marker in the form of a file: "4-Config-file-created.txt"
-    - Selenium Hub script - downloads Selenium Standalone Server if not there already, installs Java 8 if not installed, runs Selenium Standalone Server using nohup (and redirecting stdout to nohup.out) to keep the process alive after disconnecting Ansible's ssh connection, -host command line argument is used, along with the Hub's private IP address to ensure binding to correct network interface (some applications, such as Docker, will install virtual interfaces and if used with Selenium can result in unreliable connections between Nodes and the Hub)
+    - Firefox installtion script 
+       - installs firefox (latest Extended Support Release verion) and some of its dependancies (it shares a lot with Chrome so we install them with Chrome and point to them later)
+       - installs latest GeckoDriver verion
+       - create symbolic link to make Firefox accessible from anywhere
+       - installs Xvfb to simulate non-existent screen
+       - leaves a marker in the form of a file: "1-Firefox-installed.txt"
+    - Chrome Installation script 
+       - utilises a fantastic script from [intoli.com](https://intoli.com/install-google-chrome.sh) which installs Chrome and all its dependancies into its own folder (non-shared)
+       - leaves a marker in the form of a file: "2-Chrome-installed.txt"
+    - Post-Chrome installtion script 
+       - Installs latest Chromedriver
+       - Renames "google-chrome-stable" to "google-chrome" to suit Selenium
+       - leaves a marker in the form of a file: "3-Post-chrome-installed.txt"
+    - Shared-Library script 
+       - add Chrome's library directory to "LD_LIBRARY_PATH" and add to .bashrc to give system wide access (mostly for Firefox's sake)
+       - leaves a marker in the form of a file: "5-Libraries-shared.txt"
+    - nodeConfig.json constructor script 
+       - creates a script that when run on a node will construct nodeConfig.json for running Selenium as a Node
+       - leaves a marker in the form of a file: "4-Config-file-created.txt"
+    - Selenium Hub script 
+       - downloads Selenium Standalone Server if not there already
+       - installs Java 8 if not installed
+       - runs Selenium Standalone Server using 
+          - nohup (and redirecting stdout to nohup.out) to keep the process alive after disconnecting Ansible's ssh connection
+          - "-host" command line argument is used, passing Hub's private IP address to ensure binding to correct network interface (some applications, such as Docker, will install virtual interfaces and if used with Selenium can result in unreliable connections between Nodes and the Hub)
+    
     - Construct Ansible Playbook:
        - Hub
           - run the Selenium Hub script 
