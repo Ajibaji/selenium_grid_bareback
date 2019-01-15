@@ -14,6 +14,7 @@ Options are given to teardown (terraform destroy), re-run Ansible playbooks and 
  - Ansible
 
 
+
 ## Walk-through
 ### Create
  - Creates RSA key locally
@@ -83,7 +84,7 @@ Options are given to teardown (terraform destroy), re-run Ansible playbooks and 
        - Shared-Library script - add Chrome's library directory to "LD_LIBRARY_PATH" and add to .bashrc to give system wide access (mostly for Firefox's sake), leaves a marker in the form of a file: "5-Libraries-shared.txt"
        - nodeConfig.json constructor script - creates a script that when run on a node will construct nodeConfig.json for running Selenium as a Node, leaves a marker in the form of a file: "4-Config-file-created.txt"
        - Selenium Hub script - downloads Selenium Standalone Server if not there already, installs Java 8 if not installed, runs Selenium Standalone Server using nohup (and redirecting stdout to nohup.out) to keep the process alive after disconnecting Ansible's ssh connection, -host command line argument is used, along with the Hub's private IP address to ensure binding to correct network interface (some applications, such as Docker, will install virtual interfaces and if used with Selenium can result in unreliable connections between Nodes and the Hub)
-       - Ansible Playbook
+       - Ansible Playbook:
           - Hub
              - run the Selenium Hub script 
           - Node $ (where $ is the node number)
@@ -132,7 +133,7 @@ Options are given to teardown (terraform destroy), re-run Ansible playbooks and 
        - Shared-Library script - add Chrome's library directory to "LD_LIBRARY_PATH" and add to .bashrc to give system wide access (mostly for Firefox's sake), leaves a marker in the form of a file: "5-Libraries-shared.txt"
        - nodeConfig.json constructor script - creates a script that when run on a node will construct nodeConfig.json for running Selenium as a Node, leaves a marker in the form of a file: "4-Config-file-created.txt"
        - Selenium Hub script - downloads Selenium Standalone Server if not there already, installs Java 8 if not installed, runs Selenium Standalone Server using nohup (and redirecting stdout to nohup.out) to keep the process alive after disconnecting Ansible's ssh connection, -host command line argument is used, along with the Hub's private IP address to ensure binding to correct network interface (some applications, such as Docker, will install virtual interfaces and if used with Selenium can result in unreliable connections between Nodes and the Hub)
-       - Ansible Playbook
+       - Ansible Playbook:
           - Hub
              - run the Selenium Hub script 
           - Node $ (where $ is the node number)
