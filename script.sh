@@ -78,6 +78,7 @@ function runTest(){
 	}
 
 	function createTest(){
+		hub_ip=$(cat ../hub.txt | cut -d- -f1)
 		cat > sample_test.js <<-DOIT
 		const {Builder, By, Key, until} = require('selenium-webdriver');
 		const fs = require('fs');
@@ -136,7 +137,12 @@ function runTest(){
 
 	createTestEnv
 	createTest
+	clear
 	node sample_test.js
+	echo ""
+	echo ""
+	echo ""
+	echo ""
 }
 
 
@@ -421,6 +427,7 @@ function constructSeleniumHubScript(){
 # ====FUNCTION==== Construct Node config.json file constructor!
 
 function constructNodeConfigConstructorSript(){
+	hub_private_ip=$(cat hub.txt | cut -d- -f2)
 	cat > create-node-config.sh <<-EOL
 	# Construct Node json config file
 	echo '{' >> config.json
