@@ -43,6 +43,7 @@ Options are given to teardown (terraform destroy), re-run Ansible playbooks and 
           - Ephemeral ports 1024 to 65,535 (In order for HTTPS to function for connections requested from within the network, Amazon reuires these ports be opened on ACL. See the note at the bottom of [this page](https://aws.amazon.com/premiumsupport/knowledge-center/connect-http-https-ec2/#element-6f650e15-6a54-4343-b741-47235c083902)
        - Egress rules:
           - All traffic
+          
     - create an Internet Gateway on "SELENIUM_GRID_VPC" called "SELENIUM_GRID_GW"
     - create a Route Table on "SELENIUM_GRID_VPC" called "SELENIUM_GRID_route_table" directing outbound traffic (0.0.0.0/0) through "SELENIUM_GRID_GW"
     - create a Route Table Association between "SELENIUM_GRID_Subnet" and "SELENIUM_GRID_GW"
@@ -65,12 +66,15 @@ Options are given to teardown (terraform destroy), re-run Ansible playbooks and 
           - Public IP address (v4) is requested
           - Given tag:  Name = "Selenium - Node $" where '$' is the node number
           - Public and Private IP addresses of each node are output to "nodes.txt" in working directory
+          
     - "hosts.ini" file created for Ansible using follwing:
        - [all:vars]
           - use private key created earlier
           - assign user as "ec2-user"
           - disable StrictHostKeyChecking (this is done to enable promptless experience)
+          
        - A seperate section for each EC2 Instance created with its public IP listed 
+       
     - Ping all hosts on a loop (max 300) until all hosts respond (AWS takes a while to finish spinning up instances. We wait until this is done to prevent Ansible from timing out when running the Playbook)
     - create the following installation scripts, ready for Ansible to run:
        - Firefox installtion script - installs firefox (latest Extended Support Release verion) and some of its dependancies (it shares a lot with Chrome so we install them with Chrome and point to them later), installs latest GeckoDriver verion, create symbolic link to make Firefox accessible from anywhere, installs Xvfb to simulate non-existent screen, leaves a marker in the form of a file: "1-Firefox-installed.txt"
@@ -92,6 +96,7 @@ Options are given to teardown (terraform destroy), re-run Ansible playbooks and 
                 - if Selenium Standalone Server jar file doesn't exist then download it
                 - install Java 8, if not installed
                 - runs Selenium using "nohup" and redirecting stdout to "nohup.out", using "xvfb-run"to simulate the screen at 1400x1024x24, Selenium role as node, binding to correct network interface using -host, and specifiying config.json as the nodeConfig file
+                
     - Run playbook and specify the hosts.ini file we created using "ansible-playbook playbook.yml -i hosts.ini"
     - Once playbook has run its course, PIPBOY is displayed, along with URLs for the Grid Console and the destination to direct tests
 
@@ -140,6 +145,7 @@ Options are given to teardown (terraform destroy), re-run Ansible playbooks and 
                 - if Selenium Standalone Server jar file doesn't exist then download it
                 - install Java 8, if not installed
                 - runs Selenium using "nohup" and redirecting stdout to "nohup.out", using "xvfb-run"to simulate the screen at 1400x1024x24, Selenium role as node, binding to correct network interface using -host, and specifiying config.json as the nodeConfig file
+                
     - Run playbook and specify the hosts.ini file we created using "ansible-playbook playbook.yml -i hosts.ini"
     - Once playbook has run its course, PIPBOY is displayed, along with URLs for the Grid Console and the destination to direct tests
     
