@@ -137,8 +137,9 @@ function runTest(){
 
 	createTestEnv
 	createTest
+	cd ..
 	clear
-	node sample_test.js
+	node ./test_the_grid/sample_test.js
 	echo ""
 	echo ""
 	echo ""
