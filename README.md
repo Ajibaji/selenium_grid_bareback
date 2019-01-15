@@ -1,15 +1,18 @@
 # Selenium Grid:Bareback
 
-Single BASH script file that takes a number of nodes from user and creates a ready to use selenium grid using AWS EC2 instances. Runs through a script and then performs a test at the end with screenshots to boot.
+Single BASH script file that takes a number of nodes from user and creates a ready to use Selenium Grid on fresh cloud infrastructure. VPC, SUBNET, NETWORK ACL, INTERNET GATEWAY, ROUTE TABLE, SECURITY GROUP, KEY PAIR and EC2s all created for the sole purpose. 
+
+Runs through a script and then performs a test at the end with screenshots.
 
 No containerisation is used (hence 'bareback'). Firefox and chrome are both installed, along with all required dependancies for them to run in both headed and headless modes using Xvfb (installed as part of the script).
 
-Options to teardown (terraform destroy), re-run Ansible playbooks and run a test (using nodeJS)
+Options are given to teardown (terraform destroy), re-run Ansible playbooks and run a test (using nodeJS).
 
 ## Requirements
  - AWS account
  - Terraform
  - Ansible
+
 
 ## Walk-through
 ### Create
@@ -144,7 +147,7 @@ Options to teardown (terraform destroy), re-run Ansible playbooks and run a test
  - Creates directory "test_the_grid" (removing any previous folder of that name first)
  - creates a node project inside using "npm init"
  - installs Selenium Webdriver usning "npm install --save selenium-webdriver"
- - constructs "sample_test.js", inserting the Hub's test URL
+ - constructs "sample_test.js", inserting the Hub's test URL. Contains only two basic tests to ensure current Selenium Grid is correctly configured and running:
     - Chrome test
        - goes to "google.com"
        - enters "thumbs up pip boy" in search box
