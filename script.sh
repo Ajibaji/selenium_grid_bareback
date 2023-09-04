@@ -1,6 +1,4 @@
-
-# ====FUNCTION====Run Ansible Playbook
-
+# Run Ansible Playbook
 function runAnsiblePlaybook(){
 	ansible-playbook playbook.yml -i hosts.ini
 }
@@ -9,8 +7,7 @@ function runAnsiblePlaybook(){
 
 
 
-# ====FUNCTION====Complete
-
+# Complete
 function bishBashBosh(){
 	hub_ip=$(cat hub.txt | cut -d- -f1)
 
@@ -65,8 +62,6 @@ function bishBashBosh(){
 	echo "Direct your tests here: ==== http://"$hub_ip":4444/wd/hub ===="
 }
 
-
-# ====FUNCTION====runTest
 
 function runTest(){
 
@@ -150,8 +145,7 @@ function runTest(){
 
 
 
-# ====FUNCTION==== Remove all traces of previous build from working directory
-
+# Remove all traces of previous build from working directory
 function resetFolder(){
 	set +e
 	rm -f hosts.ini
@@ -178,8 +172,7 @@ function resetFolder(){
 
 
 
-# ====FUNCTION==== Remove previous build's temporary files from working directory
-
+# Remove previous build's temporary files from working directory
 function postInstallCleanUp(){
 	set +e
 	rm -f pingOutput.txt
@@ -197,8 +190,7 @@ function postInstallCleanUp(){
 
 
 
-#====FUNCTION==== Creates new key pair
-
+#Creates new key pair
 function createKey(){
 	ssh-keygen -t rsa -C "encrypted_bertha" -f encrypted_bertha.pem -N ''
 }
@@ -207,8 +199,7 @@ function createKey(){
 
 
 
-#====FUNCTION==== Initializes and runs Terraform script
-
+# Initializes and runs Terraform script
 function runTerraformApply(){
 	clear
 	echo "How many nodes do you require?"
@@ -218,9 +209,8 @@ function runTerraformApply(){
 	echo ""
 	echo "Initializing and running Terraform..."
 	terraform init
-	terraform apply -auto-approve -var no_of_nodes="$nodesRequired"
+	terraform apply -auto-approve -var no_of_nodes="$nodesRequired" -var access_key="$AWS_ACCESS_KEY_ID" -var secret_key="$AWS_SECRET_ACCESS_KEY"
 
-	# Declare variables
 	hub_public_ip=$(cat hub.txt | cut -d- -f1)
 	hub_private_ip=$(cat hub.txt | cut -d- -f2)
 	node_count=$(grep -c "[^ \\n\\t]" nodes.txt)
@@ -230,8 +220,7 @@ function runTerraformApply(){
 
 
 
-# ====FUNCTION==== Terraform Destroy and removal of keys
-
+# Terraform Destroy and removal of keys
 function runTerraformDestroy(){
 	if [ -f ./nodes.txt ]
 	then
@@ -250,8 +239,7 @@ function runTerraformDestroy(){
 
 
 
-# ====FUNCTION==== Creates Ansible hosts file from Terraform output
-
+# Creates Ansible hosts file from Terraform output
 function createAnsibleHosts(){
 	echo "[all:vars]" > hosts.ini
 	echo "ansible_ssh_private_key_file=./encrypted_bertha.pem" >> hosts.ini
@@ -273,8 +261,7 @@ function createAnsibleHosts(){
 
 
 
-# ====FUNCTION==== Ping IP addresses in hosts.ini file
-
+# Ping IP addresses in hosts.ini file
 function ansiblePing(){
 	clear
 	echo "PING-ing all IP address in Ansible hosts file\n\n"
@@ -327,7 +314,7 @@ function ansiblePing(){
 
 
 
-# ====FUNCTION==== Construct Firefox installation script
+# Construct Firefox installation script
 function constructFirefoxScript(){
 	echo "# Install Xvfb" > firefox-install.sh
 	echo "sudo yum -y install xorg-x11-server-Xvfb xorg-x11-fonts" >> firefox-install.sh
@@ -357,8 +344,7 @@ function constructFirefoxScript(){
 
 
 
-# ====FUNCTION==== Construct Chrome installation script
-
+# Construct Chrome installation script
 function constructChromeScript(){
 	curl https://intoli.com/install-google-chrome.sh > chrome-install.sh
 
@@ -374,8 +360,7 @@ function constructChromeScript(){
 
 
 
-# ====FUNCTION==== Construct Post-Chrome installation script
-
+# Construct Post-Chrome installation script
 function constructPostChromeScript(){
 	echo "# Install Chromedriver" > post-chrome-install.sh
 	echo "wget https://chromedriver.storage.googleapis.com/2.45/chromedriver_linux64.zip" >> post-chrome-install.sh
@@ -393,8 +378,7 @@ function constructPostChromeScript(){
 
 
 
-# ====FUNCTION==== Make the required libraries for Firefox shared with this script
-
+# Make the required libraries for Firefox shared with this script
 function constructShareLibrariesScript(){
 	echo "# " > share-libraries.sh
 	echo 'echo export LD_LIBRARY_PATH="/opt/google/chrome/lib:$LD_LIBRARY_PATH" >> /home/ec2-user/.bashrc' >> share-libraries.sh
@@ -425,8 +409,7 @@ function constructSeleniumHubScript(){
 
 
 
-# ====FUNCTION==== Construct Node config.json file constructor!
-
+# Construct Node config.json file constructor!
 function constructNodeConfigConstructorSript(){
 	hub_private_ip=$(cat hub.txt | cut -d- -f2)
 	cat > create-node-config.sh <<-EOL
@@ -466,12 +449,7 @@ function constructNodeConfigConstructorSript(){
 	EOL
 }
 
-
-
-
-
-# ====FUNCTION==== Construct Ansible Playbook
-
+# Construct Ansible Playbook
 function constructAnsiblePlaybook(){
 	echo "---" > playbook.yml
 	echo "- hosts: hub" >> playbook.yml
@@ -524,8 +502,7 @@ function constructAnsiblePlaybook(){
 
 
 
-# ====FUNCTION==== create all scripts and files
-
+# create all scripts and files
 function createAllScripts(){
 	constructFirefoxScript
 	constructChromeScript
@@ -540,8 +517,7 @@ function createAllScripts(){
 
 
 
-# ====FUNCTION==== Menu selection
-
+# Menu selection
 function menu(){
 	clear
 	while [ true ]

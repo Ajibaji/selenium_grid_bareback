@@ -1,10 +1,6 @@
-variable "access_key" {
-  default = "ABC123"
-}
+variable "access_key" {}
 
-variable "secret_key" {
-  default = "ABC123"
-}
+variable "secret_key" {}
 
 variable "region" {
   default = "eu-west-2"
